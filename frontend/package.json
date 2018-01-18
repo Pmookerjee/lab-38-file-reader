@@ -32,6 +32,7 @@
     "i": "^0.3.6",
     "node-sass": "^4.7.2",
     "npm": "^5.6.0",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-cookies": "^0.1.0",
     "react-devtools": "^3.0.0",

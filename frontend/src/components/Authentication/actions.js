@@ -31,7 +31,8 @@ export const signup = user => (dispatch) => {
   return request.post(`${API}/signup`)
     .withCredentials()
     .send(user)
-    .then(res => { return dispatch(setToken(res.body.token))})    
+    .then(res => { dispatch(setToken(res.body.token)); return true}) 
+    .catch(console.error);   
 }
 
 export const login = (user) => (dispatch) => {

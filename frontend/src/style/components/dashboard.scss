@@ -1,3 +1,19 @@
 li {
   padding-bottom: .6em;
+  padding-right: 2em;
+  padding-top: 1em;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.login, .login:visited, .login:active {
+  color: orange;  
+}
+
+.login:hover {
+  color: #ccc;
 }

@@ -18,10 +18,10 @@ componentWillReceiveProps() {
       <li id="logoutButton"><Link id='logoutLink' to='/'>Logout</Link></li> ,     
       <div id="kanban">
         {
-            costumes.map(costume =>
+            costumes.map((costume, i) =>
             <CostumeItem handleDelete={this.props.handleDelete}
               handleUpdate={this.props.handleUpdate}
-              key={costume.id} costume={costume} 
+              key={i} costume={costume} 
             />)
         }
       </div>

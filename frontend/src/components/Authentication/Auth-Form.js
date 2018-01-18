@@ -39,6 +39,7 @@ class AuthForm extends React.Component {
       <span className={didError}>{message}</span>,    
       <form className='authForm' onSubmit={this.handleSubmit}>
       <input
+        key='username'
         name='username'
         value={this.state.username}
         required='true'
@@ -47,6 +48,7 @@ class AuthForm extends React.Component {
         onChange={this.handleChange}
         />
        <input
+       key='password'               
        name='password'
        value={this.state.password} 
        required='true'       
@@ -55,6 +57,7 @@ class AuthForm extends React.Component {
        onChange={this.handleChange}
        />
       <input
+      key='email'             
       name='email'
       value={this.state.email} 
       required='true'      
@@ -62,7 +65,7 @@ class AuthForm extends React.Component {
       placeholder='email'
       onChange={this.handleChange}
       />
-      <button type='submit'>{action}</button>
+      <button key='button' type='submit'>{action}</button>
      </form>
     ]    
   }  
