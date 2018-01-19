@@ -30,42 +30,39 @@ class AuthForm extends React.Component {
   }
 
   render() {
-
+    let iterator = [1, 2];
     let action = this.props.action;
     let didError = this.props.authError === true ? 'authError' : 'success'
     let message = this.props.message;
     
     return [
-      <span className={didError}>{message}</span>,    
-      <form className='authForm' onSubmit={this.handleSubmit}>
-      <input
-        key='username'
-        name='username'
-        value={this.state.username}
-        required='true'
-        type='text'
-        placeholder='username'
+      <span key={iterator[0]} className={didError}>{message}</span>,    
+      <form key={iterator[1]} className='authForm' onSubmit={this.handleSubmit}>
+        <input
+          name='username'
+          value={this.state.username}
+          required='true'
+          type='text'
+          placeholder='username'
+          onChange={this.handleChange}
+          />
+        <input
+          name='password'
+        value={this.state.password} 
+        required='true'       
+        type='password'       
+        placeholder='password'
         onChange={this.handleChange}
         />
-       <input
-       key='password'               
-       name='password'
-       value={this.state.password} 
-       required='true'       
-       type='password'       
-       placeholder='password'
-       onChange={this.handleChange}
-       />
-      <input
-      key='email'             
-      name='email'
-      value={this.state.email} 
-      required='true'      
-      type='email'       
-      placeholder='email'
-      onChange={this.handleChange}
-      />
-      <button key='button' type='submit'>{action}</button>
+        <input
+        name='email'
+        value={this.state.email} 
+        required='true'      
+        type='email'       
+        placeholder='email'
+        onChange={this.handleChange}
+        />
+        <button key='button' type='submit'>{action}</button>
      </form>
     ]    
   }  

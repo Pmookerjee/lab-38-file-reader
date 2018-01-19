@@ -12,7 +12,9 @@ authRouter.post('/signup', jsonParser, (req, res, next) => {
 
   User.findOne({ username: req.body.username })
   .then(userExists => {
-    if(userExists) return next(400);
+    if(userExists) { 
+      console.log('in the userExists');
+      return next(400)};
   }).catch(500);
 
   const password = req.body.password;
@@ -20,7 +22,8 @@ authRouter.post('/signup', jsonParser, (req, res, next) => {
 
   (new User(req.body)).generateHash(password)
     .then(user => {
-      user.save()
+      console.log('in new User create, user is ', user)
+      user.save();
       let token = user.generateToken();
       console.log('token is ', token);
       res.cookie('auth', token, { maxAge: 900000 });

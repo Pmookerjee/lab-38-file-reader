@@ -21,6 +21,7 @@ app.use('*', (req, res, next) => {
 app.use('/api', require(__dirname + '/../routes/auth-routes'));
 app.use('/api', require(__dirname + '/../routes/accessory-routes'));
 app.use('/api', require(__dirname + '/../routes/costume-routes'));
+app.use('/api', require(__dirname + '/../routes/user-routes'));
 
 app.use('*', (req, res, next) => {
 

@@ -14,8 +14,10 @@ class Navbar extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.loggedIn !== this.state.loggedIn) { 
-      this.setState({loggedIn: nextProps.loggedIn})
+    console.log('nextProps is ', nextProps)
+    if (nextProps) {
+      let loggedIn = nextProps;
+      this.setState({loggedIn}); 
     }
   }
 
@@ -23,7 +25,7 @@ class Navbar extends React.Component {
   render() {
 
     let {loggedIn} = this.state.loggedIn;
-    console.log('loggedIn is ', loggedIn)
+    console.log('loggedIn from Navbar is ', loggedIn)
     return (
       <nav>
           {renderIf(loggedIn === false,

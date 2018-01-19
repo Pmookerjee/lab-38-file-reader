@@ -1,54 +1,23 @@
-import React from 'react';
+import request from 'superagent';
+import cookie from 'react-cookies';
 
-import {connect} from 'react-redux';
-import * as actions from './actions'
+export const updateProfile = user => dispatch => {
 
-import Auth from '../auth';
+    console.log('User in Profile actions is ', user);
 
-class Profile extends React.Component {
-    
-    constructor(props) {
-        
-        super(props);
-        
-        // This should be the user's profile
-        this.state = {};
-        
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+  let token = cookie.load('auth');
 
-    componentWillReceiveProps() {
-      // this.setState({this.props.profile})
-    }
-    
-    handleChange() {
-        
-    }
-    
-    handleSubmit(e) {
-        e.preventDefault();
-    }
-
-    render() {
-        
-        return (
-            <Auth allowLogin="true">
-                Welcome {this.props.user.username}
-            </Auth>
-        )
-
-    }
-
+  request.put(`${__API_URL__}/user/${user._id}`)
+    .set('Authorization', "Bearer ", token)
+    .field('firstname', user.firstname)
+    .field('lastname', user.lastname)
+    .field('about', user.about)
+    .attach('avatar', user.file)
+    .then(res => dispatch(updateUser(res.body)))
+    .catch(console.error);
 }
 
-const mapStateToProps = state => ({
-   user:state.profile
-});
-
-const mappDispatchToProps = (dispatch, getState) => ({
-    updateProfile: user => dispatch(actions.updateProfile(user)),
-    deleteProfile: user => dispatch(actions.deleteProfile(user))
-});
-
-export default connect(mapStateToProps,mappDispatchToProps)(Profile);
+const updateUser = user => ({
+    type: 'UPDATE_USER',
+    payload: user
+})

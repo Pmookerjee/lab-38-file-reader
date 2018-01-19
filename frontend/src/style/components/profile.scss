@@ -1,0 +1,40 @@
+.profileForm{
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 1.5em;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: .5em;
+}
+
+#profileSave {
+  margin: 0 auto;
+  border-radius: 3px;  
+}
+
+textarea {
+  border-radius: 3px;
+  width: 20em;
+  height: 10em;
+}
+
+#fileInput {
+  border-radius: 3px;
+  margin-left: 15em;   
+}
+
+figure {
+  display: flex;
+  justify-content: center;
+}
+
+span {
+  text-align: center;
+}

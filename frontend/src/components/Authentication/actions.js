@@ -43,7 +43,7 @@ export const login = (user) => (dispatch) => {
   
   return authType()
     .then(res => {
-      dispatch(setUser(res.body.token));
+      dispatch(setToken(res.body.token));
       return res;
     })
     .catch( e => console.error('Authenticaton Error:', e.message) );

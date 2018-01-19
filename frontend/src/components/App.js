@@ -11,6 +11,7 @@ import Navbar from './Navbar'
 import Costumes from './Costume/Costumes'
 import CostumeList from './Costume/Costume-List'
 import Landing from './Authentication/Landing'
+import Profile from './Profile/Profile'
 
 let initialState = { loggedIn: false }
 
@@ -28,17 +29,19 @@ class App extends React.Component {
   updateAuth(state) {
     let loggedIn = state;
     this.setState({loggedIn});
+    console.log('From App, this.state is: ', this.state)
   }
 
+
   render() {
-    console.log('location ', location )
+
     return (
       <div>
         <Header appTitle="Costume Inventory"/>
-        <Navbar loggedIn={this.state}/>
+        <Navbar loggedIn={this.state.loggedIn}/>
         <Switch>
           <Route exact path='/' component={() => 
-            <Dashboard loggedIn = {this.state}/>
+            <Dashboard loggedIn = {this.state.loggedIn}/>
            }/>
           <Route exact path='/logout' render={(props) => (
             <Landing {...props} loggedIn={this.state} updateAuth={this.updateAuth}/>
@@ -51,6 +54,7 @@ class App extends React.Component {
           )} />/>
           <Route exact path='/costumes' component={Costumes} />
           <Route exact path='/costumes/list' component={CostumeList} />
+          <Route exact path='/profile' component={Profile} />
         </Switch>
         <Footer><p>Mookerjee Productions 2007</p></Footer>
       </div>
