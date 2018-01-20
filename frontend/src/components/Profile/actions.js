@@ -2,18 +2,21 @@ import request from 'superagent';
 import cookie from 'react-cookies';
 
 export const updateProfile = user => dispatch => {
-
-    console.log('User in Profile actions is ', user);
-
+    console.log('In profile actions PUT: user is ', user)    
+  
   let token = cookie.load('auth');
 
-  request.put(`${__API_URL__}/user/${user._id}`)
+  console.log(`__API_URL__is ${__API_URL__}`)
+
+  request.put(`http://localhost:3000/api/user/${user._id}`)
     .set('Authorization', "Bearer ", token)
     .field('firstname', user.firstname)
     .field('lastname', user.lastname)
     .field('about', user.about)
-    .attach('avatar', user.file)
-    .then(res => dispatch(updateUser(res.body)))
+    .attach('avatar', user.avatar)
+    .then(res => {
+        console.log('In profile actions PUT: res.body is ', res.body)
+        dispatch(updateUser(res.body))})
     .catch(console.error);
 }
 

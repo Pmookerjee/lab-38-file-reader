@@ -12,19 +12,20 @@ class Dashboard extends React.Component {
     }
   }
 
-  // componentWillReceiveProps(nextProps){
-  //   if(this.props.loggedIn !== nextProps.loggedIn) {
-  //     let loggedIn = nextProps.loggedIn;
-  //     this.setState({loggedIn});
-  //   }
-  // }
+  componentWillReceiveProps(nextProps) {
+    if (nextProps) {
+      let loggedIn = nextProps.loggedIn;
+      this.setState({loggedIn}); 
+    }
+  }
     
   render() {    
-    let {loggedIn} = this.state.loggedIn;
+    let loggedIn = this.props.loggedIn;
+    console.log('from the dashboard: loggedIn is, ', loggedIn)
 
     return (
       <div>
-        {renderIf(loggedIn === false,
+        {renderIf(loggedIn !== true,
           <ul className='dashboard'>
             <li><Link className='login' to='/login'>Login</Link></li>
             <li><Link className='login' to='/signup'>Signup</Link></li>

@@ -14,7 +14,7 @@ authRouter.post('/signup', jsonParser, (req, res, next) => {
   .then(userExists => {
     if(userExists) { 
       console.log('in the userExists');
-      return next(400)};
+      return next(400);}
   }).catch(500);
 
   const password = req.body.password;
@@ -34,23 +34,24 @@ authRouter.post('/signup', jsonParser, (req, res, next) => {
 });
 
 authRouter.get('/login', basicHTTP, (req, res, next) => {
-
+   console.log('request is ', req)
   User.findOne({username: req.auth.username})
-      .then(user => {
-        if (!user) { 
-          next({statusCode: 403, message: 'Invalid Username'});
-        }
-        user.verifyPassword(req.auth.password)
-          .then(verified => {
-            if(verified) {
-              let token = verified.generateToken();
-              res.cookie('auth', token, { maxAge: 900000 });
-              res.send({verified, token});
-            } 
-            else(next(401));
-          });
-      })
-      .catch(next);
+    .then(user => {
+      if (!user) { 
+        next({statusCode: 403, message: 'Invalid Username'});
+      }
+      console.log('user is server login route is ', user);
+      user.verifyPassword(req.auth.password)
+        .then(user => {
+          if(user) {
+            let token = user.generateToken();
+            res.cookie('auth', token, { maxAge: 900000 });
+            res.send({user, token});
+          } 
+          else(next(401));
+        });
+    })
+    .catch(next);
   
 });
 

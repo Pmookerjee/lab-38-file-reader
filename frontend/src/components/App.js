@@ -26,9 +26,8 @@ class App extends React.Component {
    this.updateAuth = this.updateAuth.bind(this);
   }
 
-  updateAuth(state) {
-    let loggedIn = state;
-    this.setState({loggedIn});
+  updateAuth(authState) {
+    this.setState({['loggedIn']:authState});
     console.log('From App, this.state is: ', this.state)
   }
 
@@ -41,16 +40,16 @@ class App extends React.Component {
         <Navbar loggedIn={this.state.loggedIn}/>
         <Switch>
           <Route exact path='/' component={() => 
-            <Dashboard loggedIn = {this.state.loggedIn}/>
+            <Dashboard loggedIn={this.state.loggedIn}/>
            }/>
           <Route exact path='/logout' render={(props) => (
-            <Landing {...props} loggedIn={this.state} updateAuth={this.updateAuth}/>
+            <Landing {...props} loggedIn={this.state.loggedIn} updateAuth={this.updateAuth}/>
           )} />
           <Route exact path='/signup' render={(props) => (
-            <Landing {...props} loggedIn={this.state} updateAuth={this.updateAuth}/>
+            <Landing {...props} loggedIn={this.state.loggedIn} updateAuth={this.updateAuth}/>
           )} />
           <Route exact path='/login' render={(props) => (
-            <Landing {...props} loggedIn={this.state} updateAuth={this.updateAuth}/>
+            <Landing {...props} loggedIn={this.state.loggedIn} updateAuth={this.updateAuth}/>
           )} />/>
           <Route exact path='/costumes' component={Costumes} />
           <Route exact path='/costumes/list' component={CostumeList} />

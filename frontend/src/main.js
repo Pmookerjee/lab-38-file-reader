@@ -22,7 +22,6 @@ class Main extends React.Component {
   }
 
   render() {
-    console.log('this.props is ', this.props)
     return (
       <Provider store={store}>
         <BrowserRouter>

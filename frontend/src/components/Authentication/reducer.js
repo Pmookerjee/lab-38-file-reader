@@ -3,10 +3,14 @@ export default(state=null, {type, payload}) => {
   switch(type) {
 
     case 'TOKEN_SET':
-     return payload;
+     return {token:payload.token};
 
     case 'TOKEN_REMOVE':
-     return null
+      payload.token = null;
+      return payload;
+
+    case 'SET_USER':
+    return {token:payload.token};
      
     default:
       return state;

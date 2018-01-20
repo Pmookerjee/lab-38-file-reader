@@ -7,12 +7,9 @@ export default (state=defaultState,action) => {
 
   switch(type) {
 
-    case "SET_USER": {
+    case "TOKEN_SET": {
+      console.log('from profile reducer: TOKEN_SET payload is ', payload)
         return payload.user;
-    }
-
-    case 'TOKEN_SET': {
-    return payload;
     }
 
     case "UPDATE_USER": {

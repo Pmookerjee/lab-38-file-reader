@@ -10,9 +10,11 @@ nav {
       justify-content: space-around;
       
       li {
-          padding:0 1em;
-          position:relative;
+          padding: 0 .5em 0 1em;
+          position: relative;
           min-width: 100px;
+          font-size: 1.2em;
+          margin-right: 1.6em;
       
           &:active {
             background: green;
@@ -20,8 +22,7 @@ nav {
       }
       
       li:hover {
-         background:#ccc;
-         
+         background: ivory;
          a {
              color: #000;
          }

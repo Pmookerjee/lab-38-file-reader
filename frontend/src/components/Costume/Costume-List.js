@@ -14,8 +14,7 @@ componentWillReceiveProps() {
 
     const costumes = this.props.costumes;
     console.log('costumes is ', costumes)
-    return [
-      <li id="logoutButton"><Link id='logoutLink' to='/'>Logout</Link></li> ,     
+    return (
       <div id="kanban">
         {
             costumes.map((costume, i) =>
@@ -25,7 +24,7 @@ componentWillReceiveProps() {
             />)
         }
       </div>
-    ]
+    )
   }
 }
 

@@ -5,11 +5,12 @@ import * as actions from './actions';
 import {renderIf, filePreview} from '../../../lib/utils';
 
 const initialState = {
-  firstName: '',
-  lastName: '',
+  firstname: '',
+  lastname: '',
   about: '',
-  avatar: '',
-	file: '',
+  currentAvatar: '',
+	avatar: '',
+	preview: ''
 }
 
 class Profile extends React.Component {
@@ -28,6 +29,7 @@ class Profile extends React.Component {
     componentWillReceiveProps(nextProps) {
 			if (nextProps.profile) this.setState(nextProps.profile); 
 			let preview = null;
+			console.log('preview is ', preview)
 			this.setState({preview});   
 		}
     
@@ -37,19 +39,19 @@ class Profile extends React.Component {
     
     handleSubmit(e) {
 				e.preventDefault();
-				console.log('in Profile, this.props.profile is ', this.props.profile)
 				this.props.updateProfile(Object.assign({}, this.props.profile, this.state));
 		}
 		
 		handleFile(e) {
-			let file = e.target.files[0];
-			this.setState({file});
-			let preview = filePreview(file);
-			this.setState({preview});
+			let avatar = e.target.files[0];
+			this.setState({avatar});
+			filePreview(avatar)
+				.then(preview => this.setState({preview}))
+				.catch(console.error);
 		}
 
     render() {  
-			console.log('state in Profile is ', this.state);  
+
 			return (
 				<form className="profileForm" onSubmit={this.handleSubmit}>			
 				<label>
@@ -77,7 +79,7 @@ class Profile extends React.Component {
 				</label>
 				<label>
 					<figure>
-						<img src={this.state.avatar} />
+						<img src={this.state.currentAvatar} />
 						<figcaption>Avatar</figcaption>
 					</figure>
 					{

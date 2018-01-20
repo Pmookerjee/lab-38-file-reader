@@ -16,6 +16,12 @@ class AuthForm extends React.Component {
     this.state = initialState;
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
+    
+  }
+
+  handleLogout() {
+    this.props.handler();
   }
 
   handleChange(e){
@@ -30,10 +36,18 @@ class AuthForm extends React.Component {
   }
 
   render() {
+
     let iterator = [1, 2];
     let action = this.props.action;
     let didError = this.props.authError === true ? 'authError' : 'success'
     let message = this.props.message;
+ 
+
+    console.log('Auth-form action is ', action);
+    
+    if(action === 'logout'){
+      this.handleLogout();
+    }
     
     return [
       <span key={iterator[0]} className={didError}>{message}</span>,    
@@ -62,7 +76,7 @@ class AuthForm extends React.Component {
         placeholder='email'
         onChange={this.handleChange}
         />
-        <button key='button' type='submit'>{action}</button>
+        <button id='actionButton' key='button' type='submit'>{action}</button>
      </form>
     ]    
   }  

@@ -28,26 +28,36 @@ let bearerAuth = token => {
 
 export const signup = user => (dispatch) => {
 
+
+  console.log('user from auth actions signup is ', user)
   return request.post(`${API}/signup`)
     .withCredentials()
     .send(user)
-    .then(res => { dispatch(setToken(res.body.token)); return true}) 
+    .then(res => { 
+      console.log('res.body from auth actions signup is ', res.body)            
+      dispatch(setToken(res.body)); return res}) 
     .catch(console.error);   
 }
 
 export const login = (user) => (dispatch) => {
+  console.log('user from auth actions login is ', user)
   
   let token = cookie.load("auth");
+  let authType = () => basicAuth(user);
   
-  let authType = () => token ? basicAuth(user) : bearerAuth(token);
+  if(token) authType = () => bearerAuth(token);
   
   return authType()
     .then(res => {
-      dispatch(setToken(res.body.token));
+      console.log('res.body from auth actions login is ', res.body)      
+      dispatch(setToken(res.body));
       return res;
     })
     .catch( e => console.error('Authenticaton Error:', e.message) );
 }
 
-export const logout = () => dispatch(removeToken());
+export const logout = (auth) => ({
+  type: 'TOKEN_REMOVE',
+  payload: auth
+});
 

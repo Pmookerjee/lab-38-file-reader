@@ -17,8 +17,9 @@ class Landing extends React.Component {
     this.state = {
       loggedIn: this.props.loggedIn,
       authError: false,
+      path: this.props.location.pathname,
       message: 'Authentication credentials failed!',
-      isMounted: false
+      auth: this.props.auth
     }
 
     this.handleLogin = this.handleLogin.bind(this);
@@ -26,33 +27,29 @@ class Landing extends React.Component {
     this.handleLogout = this.handleLogout.bind(this); 
     
   }
- 
 
-  componentDidMount() {
-    this.setState({isMounted: true})
+  componentWillReceiveProps(nextProps) {
+    let loggedIn = nextProps.loggedIn;
+    let path = nextProps.location.pathname;
+    this.setState({loggedIn, path}); 
   }
-
-  componentWillUnmount(){
-    this.setState({isMounted: false})
-  }
-  
 
   handleLogin(user) {
     this.props.login(user)
-      .then(user => {
-        if(user) {
+      .then(() => {
+        console.log('in the login then')
         let loggedIn = true;
         this.props.updateAuth(loggedIn, '/costumes');
         this.props.history.push('/costumes')        
-        }
-        else Promise.reject();
       })
-      .catch(e => {
+      .catch(() => {
+        console.log('in the login catch') 
         let authError = true;
         let loggedIn = false;
         this.setState({authError});
         this.props.updateAuth(loggedIn);        
-        console.error('Authentication Error: ', e.message)
+        console.error('Authentication Error: Login Failed')
+        this.props.history.push('/')                
       });
   }
 
@@ -76,23 +73,22 @@ class Landing extends React.Component {
     });
   }
 
-  handleLogout(user) {
-    this.props.logout(user)
-    .then(() => {
-      this.props.history.push('/Dashboard');
-      this.props.updateAuth(loggedIn);
-    })      
-    .catch(console.error);
+  handleLogout() {
+    this.props.logout(this.state.auth);
+    console.log('this.props is ', this.props)
+    let loggedIn = false;
+    this.props.updateAuth(loggedIn);
+    this.props.history.push('/');      
   }
 
   render() {
-     console.log('this.props is ', this.props)
-    return (
+     let path =  location.pathname;
+
+     return (
 
       <div className="landing">
-       {renderIf(location.pathname === '/login',
+       {renderIf(path === '/login',
         <div>
-          <h3>Login</h3>
           <AuthForm action='login'
            key='login'
            authError={this.state.authError} 
@@ -100,9 +96,8 @@ class Landing extends React.Component {
            handler={this.handleLogin}/>
         </div>
        )}
-        {renderIf(location.pathname === '/signup',
+        {renderIf(path === '/signup',
         <div>
-          <h3>Signup</h3>
           <AuthForm action='signup'
            key='signup'
            authError={this.state.authError}
@@ -110,16 +105,18 @@ class Landing extends React.Component {
            handler={this.handleSignup}/>
         </div>
        )}
-       {renderIf(location.pathname === '/logout',
+       {renderIf(path === '/logout',
         <div>
-          {this.handleLogout}
+          <AuthForm action='logout'
+           authError='You are logged out'
+           handler={this.handleLogout}/>
         </div>
        )}
-       {renderIf(this.props.loggedIn === true,
+       {/* {renderIf(this.props.loggedIn === true,
         <div>
         <Costumes updateAuth={this.updateAuth}/>
         </div>
-       )}
+       )} */}
       </div>
     )     
   }  
@@ -132,7 +129,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   signup: (user) => dispatch(authActions.signup(user)),
   login: (user) => dispatch(authActions.login(user)),
-  logout: (user) => dispatch(authActions.logout(user))
+  logout: (auth) => dispatch(authActions.logout(auth))
 });
   
 export default connect(mapStateToProps,mapDispatchToProps)(Landing);

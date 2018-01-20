@@ -24,7 +24,6 @@ class Costumes extends React.Component {
   }
 	
   render() {
-		console.log('in costume controller: ', this.props)
 		return (
 			<div id="costumeWrapper">
 				<CostumeCreate handler={this.props.handleAddCostume} />
@@ -51,4 +50,4 @@ const mapDispatchToProps = (dispatch, getState) => ({
 	handleDeleteCostume: costume => dispatch(actions.deleteCostume(costume))
 });
 
-export default connect(mapStateToProps,mapDispatchToProps)(Costumes);
+export default connect(mapStateToProps,mapDispatchToProps)(Costumes, CostumeList);
