@@ -8,9 +8,7 @@ const initialState = {
   firstname: '',
   lastname: '',
   about: '',
-  currentAvatar: '',
-	avatar: '',
-	preview: ''
+	avatar: ''
 }
 
 class Profile extends React.Component {
@@ -46,7 +44,8 @@ class Profile extends React.Component {
 			let avatar = e.target.files[0];
 			this.setState({avatar});
 			filePreview(avatar)
-				.then(preview => this.setState({preview}))
+				.then(preview => { console.log('preview in Profile handleFile is ', preview) 
+				this.setState({preview})})
 				.catch(console.error);
 		}
 
@@ -79,7 +78,7 @@ class Profile extends React.Component {
 				</label>
 				<label>
 					<figure>
-						<img src={this.state.currentAvatar} />
+						<img src={this.state.avatar} />
 						<figcaption>Avatar</figcaption>
 					</figure>
 					{
