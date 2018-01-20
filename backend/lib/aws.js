@@ -5,7 +5,14 @@ const s3 = new aws.S3();
 
 const fs = require('fs-extra');
 
-const uploadFile = module.exports =  (avatarPath, key) => {
+// aws.config.update({
+//   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+//   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+// });
+
+const uploadFile = (avatarPath, key) => {
+
+  console.log('avatarPath and key is ', avatarPath, ' ', key)
   return s3.upload({
     Bucket: process.env.AWS_BUCKET,
     Key: key,
@@ -13,7 +20,9 @@ const uploadFile = module.exports =  (avatarPath, key) => {
     Body: fs.createReadStream(avatarPath),
   })
   .promise()
-  .then(res => { // onSuccess
+  .then(res => { 
+    
+    console.log('res in aws is ', res);
     return fs.remove(avatarPath)
     .then(() => res.Location);
   }).catch(error => { 
@@ -23,12 +32,14 @@ const uploadFile = module.exports =  (avatarPath, key) => {
   
 };
 
-const deleteImage = module.exports = (key) => {
+const deleteImage = (key) => {
   return s3.deleteObject({
     Key: key,
     Bucket: process.env.Bucket,
   })
   .promise()
 } 
+
+module.exports = {uploadFile, deleteImage};
 
 

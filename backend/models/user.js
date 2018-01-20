@@ -42,8 +42,8 @@ userSchema.methods.attachAvatar = function(files) {
   let user = this,
     avatar = files[0],
     key = `${avatar.filename}-${avatar.originalname}`;
-
-  return aws.uploadFile(avatar.path, key)
+    
+  return aws.uploadFile(avatar.path, key)   
   .then(path => {
     user.avatar = path;
     return user.save();
