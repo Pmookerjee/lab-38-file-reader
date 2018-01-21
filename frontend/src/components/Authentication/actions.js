@@ -36,6 +36,7 @@ export const signup = user => (dispatch) => {
 
 export const login = (user) => (dispatch) => {
   
+  console.log('user is ', user)
   let token = cookie.load("auth");
   let authType = () => basicAuth(user);
   
@@ -50,8 +51,7 @@ export const login = (user) => (dispatch) => {
     .catch( e => console.error('Authenticaton Error:', e.message) );
 }
 
-export const logout = (auth) => ({
-  type: 'TOKEN_REMOVE',
-  payload: auth
+export const logout = () => ({
+  type: 'TOKEN_REMOVE'
 });
 

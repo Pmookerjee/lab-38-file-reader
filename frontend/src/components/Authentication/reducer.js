@@ -6,8 +6,7 @@ export default(state=null, {type, payload}) => {
      return {...payload};
 
     case 'TOKEN_REMOVE':
-      payload.token = null;
-      return payload;
+      return null;
 
     case 'SET_USER':
     return {token:payload.token};

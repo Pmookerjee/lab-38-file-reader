@@ -75,7 +75,6 @@ class Landing extends React.Component {
 
   handleLogout() {
     this.props.logout(this.state.auth);
-    console.log('this.props is ', this.props)
     let loggedIn = false;
     this.props.updateAuth(loggedIn);
     this.props.history.push('/');      
@@ -112,11 +111,6 @@ class Landing extends React.Component {
            handler={this.handleLogout}/>
         </div>
        )}
-       {/* {renderIf(this.props.loggedIn === true,
-        <div>
-        <Costumes updateAuth={this.updateAuth}/>
-        </div>
-       )} */}
       </div>
     )     
   }  
@@ -129,7 +123,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   signup: (user) => dispatch(authActions.signup(user)),
   login: (user) => dispatch(authActions.login(user)),
-  logout: (auth) => dispatch(authActions.logout(auth))
+  logout: () => dispatch(authActions.logout())
 });
   
 export default connect(mapStateToProps,mapDispatchToProps)(Landing);

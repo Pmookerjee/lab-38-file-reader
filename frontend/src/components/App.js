@@ -26,8 +26,9 @@ class App extends React.Component {
    this.updateAuth = this.updateAuth.bind(this);
   }
 
-  updateAuth(authState) {
-    this.setState({['loggedIn']:authState});
+  updateAuth(loggedIn) {
+
+    this.setState({loggedIn});
     console.log('From App, this.state is: ', this.state)
   }
 
