@@ -34,18 +34,20 @@ authRouter.post('/signup', jsonParser, (req, res, next) => {
 });
 
 authRouter.get('/login', basicHTTP, (req, res, next) => {
-   console.log('request is ', req)
+  console.log('req.auth is ', req.auth)
   User.findOne({username: req.auth.username})
     .then(user => {
       if (!user) { 
         next({statusCode: 403, message: 'Invalid Username'});
       }
-      console.log('user is server login route is ', user);
       user.verifyPassword(req.auth.password)
         .then(user => {
+          console.log('user after verify password is ', user);
+          
           if(user) {
             let token = user.generateToken();
             res.cookie('auth', token, { maxAge: 900000 });
+            console.log('BLIPPP: user is ', user, ' and token is ', token)
             res.send({user, token});
           } 
           else(next(401));
@@ -56,11 +58,13 @@ authRouter.get('/login', basicHTTP, (req, res, next) => {
 });
 
 authRouter.get('/validate', bearer, (req, res, next) => {
-  
+  console.log('req.user in validate is ', req.user)
   User.findOne({_id: req.user._id})
     .then(user => {
       let token = user.generateToken();
       res.cookie('auth', token, { maxAge: 900000 });
+      console.log('user is ', user);
+      console.log('res is ', res);
       res.send({user,token});
     })
     .catch(next);

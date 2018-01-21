@@ -2,13 +2,12 @@ import request from 'superagent';
 import cookie from 'react-cookies';
 
 let API = `${__API_URL__}`;
+let token = undefined;
 
 const setToken = (auth) => ({
   type: 'TOKEN_SET',
   payload: auth
 })
-
-
 
 let basicAuth = user => {
   
@@ -17,8 +16,8 @@ let basicAuth = user => {
     .auth(user.username, user.password);
 };
 
-let bearerAuth = token => {
-  
+let bearerAuth = user => {
+  console.log('bearerAuth: user is ', user);
   return request.get(`${__API_URL__}/validate`)
     .set('Authorization', 'Bearer ' + token);
 };
@@ -36,11 +35,14 @@ export const signup = user => (dispatch) => {
 
 export const login = (user) => (dispatch) => {
   
-  console.log('user is ', user)
-  let token = cookie.load("auth");
+  token = cookie.load("auth");
   let authType = () => basicAuth(user);
+
+  console.log('token is ', token);
+  console.log('user in auth Actions is ', user);
   
-  if(token) authType = () => bearerAuth(token);
+
+  if(token) authType = () => bearerAuth(user);
   
   return authType()
     .then(res => {
