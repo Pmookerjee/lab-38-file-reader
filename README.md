@@ -1,34 +1,16 @@
-401 JS --  Lab 38 photo uploads
-===
+### Setup
 
-## Submission Instructions
-  * Work in a fork of this repository
-  * Work in a branch on your fork
-  * Write all of your code in a directory named `lab-` + `<your name>` **e.g.** `lab-duncan`
-  * Submit a pull request to this repository
-  * Submit a link to your pull request on canvas
-  * Submit a question, observation, and how long you spent on canvas  
+1. Run `npm i` from the root directory to install node modules
+2. `cd frontend` and create a .env file with `API_URL=http://localhost:3000` and `NODE_ENV=dev`
+3. `cd backend` and create a .env file with the following: 
+PORT=3000
+DB_URL='mongodb://localhost:27017/{name_of_your_db}'
+AWS_BUCKET={name_of_your_bucket_on_amazon}
+AWS_ACCESS_KEY_ID={your_access_key_id}
+AWS_SECRET_ACCESS_KEY={your_secret_code}
+4. In a terminal, `cd frontend`, then `npm run watch` to start webpack and react 
+5. In a 2nd terminal, run `mkdir db`, then run `mongod --dbpath=./db` to run mongo 
+6. In a 3rd terminal, `cd backend`, then `npm start` to start the server
 
 
-## Requirements  
-#### backend setup
-* use [sluggram](http://github.com/slugbyte/sluggram) 
-* or use your mid 401 project
-
- 
-#### Feature Tasks 
-* Create a SettingsContainer
-  * give the user the ablity to create or update thier profile
-  
-* Create a DashboardContainer
-  * give the user the abilty to create, read, update and destroy photos
-
-#### Test
-* Test your redux reducers 
-* Test your util methods
-
-## Bonus 2pts
-* Create full crud for two resources 
-
-####  Documentation  
-Write a description of the project in your README.md
+Upon signup, user can view costumes and profile routes.

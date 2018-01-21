@@ -14,9 +14,9 @@ class Costumes extends React.Component {
 		super(props);
 	}
 
-	componentWillMount() {
-		this.props.handleInitialize();
-	}
+	// componentWillMount() {
+	// 	this.props.handleInitialize();
+	// }
 
 	componentWillReceiveProps(nextProps) {
 		console.log('next ', nextProps);
@@ -24,9 +24,12 @@ class Costumes extends React.Component {
   }
 	
   render() {
+
+		console.log('this.props in costumes is ', this.props)
 		return (
 			<div id="costumeWrapper">
-				<CostumeCreate handler={this.props.handleAddCostume} />
+				<CostumeCreate 
+				  handler={this.props.handleAddCostume} />
 				<CostumeList 
 				 costumes={this.props.costumes}
 				 handleDelete={this.props.handleDeleteCostume}
@@ -39,7 +42,7 @@ class Costumes extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		costumes: state.costumes
+		costumes: state.costumes[state.auth.user.username]
 	}
 };
 

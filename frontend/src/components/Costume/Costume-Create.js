@@ -6,7 +6,7 @@ class CostumeCreate extends React.Component {
 
     super(props);
 
-    this.state = this.props.costume || {name:'', description:''},        
+    this.state = this.props.costume || {name:'', description:''}      
 
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);    

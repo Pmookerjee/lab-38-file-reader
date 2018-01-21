@@ -47,6 +47,7 @@ class Profile extends React.Component {
 				.then(preview => { console.log('preview in Profile handleFile is ', preview) 
 				this.setState({preview})})
 				.catch(console.error);
+				console.log('this.state in profile is ', this.state)
 		}
 
     render() {  
@@ -78,8 +79,8 @@ class Profile extends React.Component {
 				</label>
 				<label>
 					<figure>
-						<img src={this.state.avatar} />
 						<figcaption>Avatar</figcaption>
+						<img src={this.state.avatar} />
 					</figure>
 					{
 						renderIf(this.state.preview, 

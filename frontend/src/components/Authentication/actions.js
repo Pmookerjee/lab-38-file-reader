@@ -8,10 +8,7 @@ const setToken = (auth) => ({
   payload: auth
 })
 
-const removeToken = () => ({
-  type: 'TOKEN_REMOVE',
-  payload: auth
-})
+
 
 let basicAuth = user => {
   
@@ -28,8 +25,6 @@ let bearerAuth = token => {
 
 export const signup = user => (dispatch) => {
 
-
-  console.log('user from auth actions signup is ', user)
   return request.post(`${API}/signup`)
     .withCredentials()
     .send(user)
@@ -40,7 +35,6 @@ export const signup = user => (dispatch) => {
 }
 
 export const login = (user) => (dispatch) => {
-  console.log('user from auth actions login is ', user)
   
   let token = cookie.load("auth");
   let authType = () => basicAuth(user);

@@ -32,9 +32,14 @@ textarea {
 
 figure {
   display: flex;
+  flex-direction: column;
   justify-content: center;
 }
 
 span {
+  text-align: center;
+}
+
+figcaption {
   text-align: center;
 }

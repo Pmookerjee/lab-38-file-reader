@@ -3,7 +3,7 @@ export default(state=null, {type, payload}) => {
   switch(type) {
 
     case 'TOKEN_SET':
-     return {token:payload.token};
+     return {...payload};
 
     case 'TOKEN_REMOVE':
       payload.token = null;
