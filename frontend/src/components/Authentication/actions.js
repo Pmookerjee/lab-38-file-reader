@@ -53,7 +53,11 @@ export const login = (user) => (dispatch) => {
     .catch( e => console.error('Authenticaton Error:', e.message) );
 }
 
-export const logout = () => ({
+export const logout = () => (dispatch) => {
+  cookie.remove('auth');
+  dispatch(logoutAction());
+};
+
+const logoutAction = () => ({
   type: 'TOKEN_REMOVE'
 });
-
